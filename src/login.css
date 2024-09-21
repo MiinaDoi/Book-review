@@ -1,0 +1,78 @@
+/* General styling for the whole page to center the form */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+  }
+  
+  form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    box-sizing: border-box;
+  }
+  
+  /* Styling for form title */
+  form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling labels for better readability */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  /* Style for input fields */
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* makes padding included in width */
+  }
+  
+  /* Highlighting the error messages */
+  .error {
+    color: #ff0000;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling the submit button */
+  button {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button:hover {
+    background-color: #333333;
+  }
+  
+  /* Styling for placeholders in inputs */
+  input::placeholder {
+    color: #888;
+  }
+  
+  /* Ensure that focus states are visible and clear */
+  input:focus {
+    border-color: #4991E5;
+    outline: none;
+  }
+  
