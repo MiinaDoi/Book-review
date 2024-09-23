@@ -24,11 +24,12 @@
     /* Add Node and Playwright types */
     "types": [
       "node",
-      "playwright"
+      "playwright",
+      "vitest/globals"
     ]
   },
   "include": [
     "src",
-    "tests/**/*.ts"
+    "tests/**/*"
   ]
 }

@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "jsx": "react-jsx",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -20,11 +21,13 @@
     /* Add Playwright types */
     "types": [
       "node",
-      "playwright"
+      "playwright",
+      "vitest/globals"
     ]
   },
   "include": [
     "vite.config.ts",
-    "tests/**/*.ts"
+    "tests/**/*.ts",
+    "tests/login.test.tsx"
   ]
 }
