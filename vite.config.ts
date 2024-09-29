@@ -19,5 +19,5 @@ export default defineConfig({
     environment: 'jsdom',
     css: true,
     include: ['**/*.test.?(c|m)[jt]s?(x)'],
-  }
+  },
 })

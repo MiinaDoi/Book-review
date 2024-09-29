@@ -1,22 +1,24 @@
-import { Formik, Form, Field, ErrorMessage, FormikHelpers} from 'formik';
+import { useNavigate, Link } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import './signup.css';
 
 interface SignupValues {
-  username: string;
+  name: string;
   email: string;
   password: string;
-  iconUrl: string; 
 }
 
-// Validation Schema
+// Validation schema for form inputs
 const SignupSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
+  name: Yup.string().required('Username is required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters long').required('Required'),
-  iconUrl: Yup.string().url('Must be a valid URL').required('An image is required')
 });
 
 function Signup() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (values: SignupValues, { setSubmitting }: FormikHelpers<SignupValues>) => {
     setSubmitting(true);
     try {
@@ -25,68 +27,63 @@ function Signup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
       });
-      const data = await response.json();
-      console.log("User created:", data);
-      setSubmitting(false);
-    } catch (error) {
-      console.error("Error:", error);
-      setSubmitting(false);
-    }
-  };
 
-  const handleImageUpload = async (file: File, setFieldValue: (field: string, value: any) => void) => {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch('https://railway.bookreview.techtrain.dev/uploads', {
-        method: 'POST',
-        body: formData
-      });
       const data = await response.json();
-      setFieldValue('iconUrl', data.iconUrl);
+
+      if (response.ok) {
+        console.log('User created:', data);
+        navigate('/upload', { state: { token: data.token } }); // Navigate to the upload page with the token directly
+      } else {
+        console.error('Failed to create user:', data); // for developer
+        alert(data.ErrorMessageEN); // for user
+      }
     } catch (error) {
-      console.error("Error uploading image:", error);
-      setFieldValue('iconUrl', null);
+      console.error('Error:', error);
     }
+    setSubmitting(false);
   };
 
   return (
     <div>
-      <h1>Signup</h1>
+      <h1>BookReview</h1>
       <Formik
-        initialValues={{ username: '', email: '', password: '', iconUrl: '' }}
+        initialValues={{ name: '', email: '', password: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue }) => (
+        {({ isSubmitting }) => (
           <Form>
-            <label htmlFor="username">Username</label>
-            <Field name="username" type="text" />
-            <ErrorMessage name="username" component="div" />
+            <div>
+              <label htmlFor="name">Username</label>
+              <Field name="name" type="text" />
+              <ErrorMessage name="name" component="div" className="error" />
+            </div>
 
-            <label htmlFor="email">Email</label>
-            <Field name="email" type="email" />
-            <ErrorMessage name="email" component="div" />
+            <div>
+              <label htmlFor="email">Email</label>
+              <Field name="email" type="email" />
+              <ErrorMessage name="email" component="div" className="error" />
+            </div>
 
-            <label htmlFor="password">Password</label>
-            <Field name="password" type="password" />
-            <ErrorMessage name="password" component="div" />
+            <div>
+              <label htmlFor="password">Password</label>
+              <Field name="password" type="password" />
+              <ErrorMessage name="password" component="div" className="error" />
+            </div>
 
-            <label htmlFor="iconUrl">Upload Image</label>
-            <input type="file" accept="image/jpeg, image/png" onChange={(event) => {
-              const file = event.currentTarget.files ? event.currentTarget.files[0] : null;
-              if (file) handleImageUpload(file, setFieldValue);
-            }} />
-            <ErrorMessage name="iconUrl" component="div" />
-
-            <button type="submit">Sign Up</button>
+            <button type="submit" className="button" disabled={isSubmitting}>
+              Continue
+            </button>
           </Form>
         )}
       </Formik>
-      <p>Already have an account.</p>
+
+      {/* Use Link component for SEO and accessibility setting */}
+      <Link to="/login" className="login-redirect">
+        Already have an account.
+      </Link>
     </div>
   );
 }

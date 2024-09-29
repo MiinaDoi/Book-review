@@ -4,6 +4,8 @@ import './App.css'
 
 import Login from './pages/login';  // Import the Login component
 import Signup from './pages/signup';
+import Upload from './pages/upload';
+import Home from './pages/home';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +14,8 @@ const App: React.FC = () => {
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );
