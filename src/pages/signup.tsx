@@ -1,6 +1,9 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from "react-redux";
+import { setToken } from '../slices/authSlice';
+
 import './signup.css';
 
 interface SignupValues {
@@ -18,6 +21,7 @@ const SignupSchema = Yup.object().shape({
 
 function Signup() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (values: SignupValues, { setSubmitting }: FormikHelpers<SignupValues>) => {
     setSubmitting(true);
@@ -34,6 +38,8 @@ function Signup() {
 
       if (response.ok) {
         console.log('User created:', data);
+        // setCookie(data.token);
+        dispatch(setToken(data.token));
         navigate('/upload', { state: { token: data.token } }); // Navigate to the upload page with the token directly
       } else {
         console.error('Failed to create user:', data); // for developer

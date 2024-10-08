@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setToken } from '../slices/authSlice';
+
 import './login.css';
 
 function Login() {
@@ -7,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const validateForm = () => {
     let newErrors = { email: '', password: '' };
@@ -40,8 +44,10 @@ function Login() {
         const data = await response.json();
         if (response.ok) {
           console.log('Login successful:', data);
+          // setCookie("token", data.token);
+          dispatch(setToken(data.token));
           // Navigate to another route or set user context
-          navigate('/home'); // Adjust as needed based on where you want the user to go post-login
+          navigate('/'); // Adjust as needed based on where you want the user to go post-login
         } else {
           setErrors(prev => ({ ...prev, email: 'Login failed', password: 'Login failed' }));
         }

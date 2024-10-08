@@ -35,7 +35,7 @@ const Upload: React.FC = () => {
           .then((data) => {
             if (data.iconUrl) {
               console.log('Image uploaded:', data.iconUrl);
-              navigate('/home');
+              navigate('/');
             } else {
               throw new Error(data.message || 'Failed to upload image');
             }

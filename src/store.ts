@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import paginationReducer from "./slices/authSlice"; // Import the pagination slice
+import authReducer from "./slices/authSlice";
+import paginationReducer from "./slices/paginationSlice"; // Import the pagination slice
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     pagination: paginationReducer, // Add pagination reducer
   },
 });

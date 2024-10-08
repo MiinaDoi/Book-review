@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../store";
-import { setNextPage, setPrevPage } from "../slices/authSlice";
+import { setNextPage, setPrevPage } from "../slices/paginationSlice";
 
 const PaginationControls: React.FC = () => {
   const offset = useSelector((state: RootState) => state.pagination.offset);
