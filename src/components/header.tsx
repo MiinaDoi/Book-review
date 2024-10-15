@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../store';
 import { clearToken } from '../slices/authSlice';
+import './header.css';
 
 const Header: React.FC = () => {
   const [name, setName] = useState<string | null>(null);
+  const [iconUrl, setIconUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ const Header: React.FC = () => {
           const data = await response.json();
           if (response.ok) {
             setName(data.name);  // Set the name from the API response
+            setIconUrl(data.iconUrl); // Set the iconUrl from the API response
           } else {
             setError('Failed to fetch user data');
           }
@@ -49,17 +52,32 @@ const Header: React.FC = () => {
     fetchUserData();
   }, [token]);  // Dependency on token
 
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
+
   return (
-    <header>
-      <div>
-        {/* Conditional rendering based on login status */}
+    <header className="header">
+      <div className="header-left">
+        <h1>BookReview.com</h1>
+      </div>
+      <div className="header-center">
+        {token && <h2>Welcome, {name ? name : 'Loading...'}!</h2>} {/* Centered Welcome text */}
+      </div>
+      <div className="header-right">
         {token ? (
-          <div>
-            <span>Welcome, {name ? name : 'Loading...'}!</span> {/* Display name or loading message */}
-            <button onClick={handleLogoutClick}>Logout</button>
-          </div>
+          <>
+            <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
+            {iconUrl && (
+              <img
+                src={iconUrl}
+                alt="User Icon"
+                onClick={handleProfileClick}
+              />
+            )}
+          </>
         ) : (
-          <button onClick={handleLoginClick}>Login</button>
+          <button onClick={handleLoginClick} className="logout-button">Login</button>
         )}
         {error && <div className="error">{error}</div>} {/* Display error if fetching fails */}
       </div>

@@ -1,0 +1,25 @@
+/* Container for pagination controls */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Style for pagination buttons */
+  .pagination-button {
+    background-color: #e2e2e2;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .pagination-button:hover {
+    background-color: #ccc; /* Change color on hover */
+  }
+  

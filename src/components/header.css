@@ -1,0 +1,79 @@
+/* General header styling */
+.header {
+  width: 100vw; /* Ensure the header takes full viewport width */
+  height: 80px;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  padding: 0 20px; /* Add padding to avoid content touching the edges */
+  box-sizing: border-box;
+  position: fixed; /* Keep header fixed at the top */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Left side logo */
+.header-left {
+  flex: 1;
+  text-align: left;
+}
+
+/* Set BookReview.com text color to white and adjust its position */
+.header-left h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 25px;  /* Adjust font size if needed */
+  font-weight: bold;
+}
+
+/* Center the welcome text */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center the text */
+}
+
+.header-center h2 {
+  font-size: 20px;
+  font-weight: lighter;
+  text-align: center;
+  margin: 0;
+}
+
+/* Right side user icon and logout button */
+.header-right {
+  flex: 1;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* User icon styling */
+.header-right img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Logout button */
+.logout-button {
+  margin-right: 10px;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+  background-color: transparent;
+  color: #2181E2;
+}

@@ -1,0 +1,61 @@
+/* Container for the book detail page */
+.detail-container {
+  width: 600px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Heading styles for book title */
+.detail-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Paragraph styles for book details and reviews */
+.detail-container p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Styling for links (e.g., Read More button) */
+.detail-container a {
+  color: #2181E2;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #2181E2;
+  color: #fff;
+}
+
+.detail-container a:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+/* General error message styling */
+.error-message {
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* General loading message styling */
+.loading-message {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+}
