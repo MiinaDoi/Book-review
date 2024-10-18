@@ -40,7 +40,11 @@ function Signup() {
         console.log('User created:', data);
         // setCookie(data.token);
         dispatch(setToken(data.token));
-        navigate('/upload', { state: { token: data.token } }); // Navigate to the upload page with the token directly
+        console.log('Attempting to navigate to /upload');
+        setTimeout(() => {
+          navigate('/upload');
+        }, 0);
+        console.log('Navigation function called');
       } else {
         console.error('Failed to create user:', data); // for developer
         alert(data.ErrorMessageEN); // for user
@@ -63,19 +67,19 @@ function Signup() {
           <Form>
             <div>
               <label htmlFor="name">Username</label>
-              <Field name="name" type="text" />
+              <Field id="name" name="name" type="text" />
               <ErrorMessage name="name" component="div" className="error" />
             </div>
 
             <div>
               <label htmlFor="email">Email</label>
-              <Field name="email" type="email" />
+              <Field id="email" name="email" type="email" />
               <ErrorMessage name="email" component="div" className="error" />
             </div>
 
             <div>
               <label htmlFor="password">Password</label>
-              <Field name="password" type="password" />
+              <Field id="password" name="password" type="password" />
               <ErrorMessage name="password" component="div" className="error" />
             </div>
 

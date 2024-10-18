@@ -42,52 +42,55 @@ const Profile: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
+  
+    // Variable to hold the final icon URL
+    let finalIconUrl = iconUrl;
+  
     // First, compress and upload the new icon if a new image is selected
-    let uploadedIconUrl = iconUrl;
     if (newIconUrl) {
       try {
-        new Compressor(newIconUrl, {
-          quality: 0.8, // Adjust the quality (80%)
-          maxWidth: 800, 
-          maxHeight: 800,
-          success: async (compressedResult) => {
-            const formData = new FormData();
-            formData.append('icon', compressedResult);
-
-            try {
-              const response = await fetch('https://railway.bookreview.techtrain.dev/uploads', {
-                method: 'POST',
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                body: formData,
-              });
-
-              if (!response.ok) {
-                throw new Error('Failed to upload image');
+        await new Promise<void>((resolve, reject) => {
+          new Compressor(newIconUrl, {
+            quality: 0.8, // Adjust the quality (80%)
+            maxWidth: 800, 
+            maxHeight: 800,
+            success: async (compressedResult) => {
+              const formData = new FormData();
+              formData.append('icon', compressedResult);
+  
+              try {
+                const response = await fetch('https://railway.bookreview.techtrain.dev/uploads', {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: formData,
+                });
+  
+                if (!response.ok) {
+                  throw new Error('Failed to upload image');
+                }
+  
+                const data = await response.json();
+                finalIconUrl = data.iconUrl;  // Set the new icon URL from the upload response
+                resolve();
+              } catch (error) {
+                setError('Error uploading image');
+                reject(error);
               }
-
-              const data = await response.json();
-              uploadedIconUrl = data.iconUrl;  // Set the new icon URL from the upload response
-            } catch (error) {
-              setError('Error uploading image');
-              return;
+            },
+            error(err) {
+              setError('Error compressing image');
+              reject(err);
             }
-          },
-          error(err) {
-            setError('Error compressing image');
-            console.error(err.message);
-            return;
-          }
+          });
         });
       } catch (error) {
-        setError('Error compressing or uploading image');
-        return;
+        return; // Exit the function if an error occurs during image upload
       }
     }
-
-    // Update user profile with new name and iconUrl
+  
+    // Update user profile with new name and final iconUrl
     try {
       const response = await fetch('https://railway.bookreview.techtrain.dev/users', {
         method: 'PUT',
@@ -95,9 +98,9 @@ const Profile: React.FC = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, iconUrl: finalIconUrl }),
       });
-
+  
       if (response.ok) {
         setSuccess('Profile updated successfully');
         navigate('/');  // Redirect to home after successful update
@@ -107,7 +110,7 @@ const Profile: React.FC = () => {
     } catch (error) {
       setError('Error updating profile');
     }
-  };
+  };  
 
   return (
     <div>

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { setToken } from '../slices/authSlice';
 
 import './login.css';
+
+interface LoginResponse {
+  token: string;
+}
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,7 +30,6 @@ function Login() {
     }
     setErrors(newErrors);
 
-    // Return true if no errors
     return !newErrors.email && !newErrors.password;
   };
 
@@ -41,19 +44,17 @@ function Login() {
           },
           body: JSON.stringify({ email, password }),
         });
-        const data = await response.json();
+        const data = (await response.json()) as LoginResponse;
         if (response.ok) {
           console.log('Login successful:', data);
-          // setCookie("token", data.token);
           dispatch(setToken(data.token));
-          // Navigate to another route or set user context
-          navigate('/'); // Adjust as needed based on where you want the user to go post-login
+          navigate('/');
         } else {
-          setErrors(prev => ({ ...prev, email: 'Login failed', password: 'Login failed' }));
+          setErrors((prev) => ({ ...prev, email: 'Login failed', password: 'Login failed' }));
         }
       } catch (error) {
         console.error('Login error:', error);
-        setErrors(prev => ({ ...prev, email: 'Login error', password: 'Login error' }));
+        setErrors((prev) => ({ ...prev, email: 'Login error', password: 'Login error' }));
       }
     } else {
       console.log('Form is invalid');
@@ -63,15 +64,25 @@ function Login() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} noValidate>
-        <h2>Welcome Back!</h2> 
+        <h2>Welcome Back!</h2>
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+          />
           {errors.email && <div className="error">{errors.email}</div>}
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
+          />
           {errors.password && <div className="error">{errors.password}</div>}
         </div>
         <button type="submit" className="button">Log in</button>

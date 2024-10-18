@@ -51,6 +51,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  min-width: 200px; /* Reserve enough space for the name and icon */
 }
 
 /* User icon styling */
@@ -60,6 +61,7 @@
   border-radius: 50%;
   cursor: pointer;
   margin-left: 10px;
+  aspect-ratio: 1; /* aspect-ratio to avoid image content causing layout shifts */
 }
 
 /* Logout button */

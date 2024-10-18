@@ -1,28 +1,61 @@
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Compressor from 'compressorjs';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store'; // Import RootState type
 import './upload.css';
 
 const Upload: React.FC = () => {
-  const location = useLocation();
-  const token = location.state?.token;
+  const [error, setError] = useState<string | null>(null);
+  const token = useSelector((state: RootState) => state.auth.token);
   const navigate = useNavigate();
+
+  // Fetch user data with token (if needed)
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (token) {
+        try {
+          const response = await fetch('https://railway.bookreview.techtrain.dev/users', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          console.log('fetchUserData');
+          if (!response.ok) {
+            setError('Failed to fetch user data');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          setError('Error fetching user data');
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [token]);
 
   const uploadSchema = Yup.object().shape({
     file: Yup.mixed().required('Uploading photo is required'),
   });
 
-  // Function to compress and upload the image
   const handleFileUpload = async (file: File, setSubmitting: (isSubmitting: boolean) => void) => {
+    if (!token) {
+      setError('Token is missing. Please login.');
+      setSubmitting(false);
+      navigate('/login');
+      return;
+    }
+
     new Compressor(file, {
-      quality: 0.8, // Adjust the quality (0.8 means 80% quality)
-      maxWidth: 800, 
+      quality: 0.8,
+      maxWidth: 800,
       maxHeight: 800,
       success(result) {
         const formData = new FormData();
-        formData.append('icon', result); // Add the compressed image to FormData
+        formData.append('icon', result);
 
         fetch('https://railway.bookreview.techtrain.dev/uploads', {
           method: 'POST',
@@ -42,11 +75,13 @@ const Upload: React.FC = () => {
           })
           .catch((error) => {
             console.error('Error uploading image:', error);
+            setError('Error uploading image');
             setSubmitting(false);
           });
       },
       error(err) {
         console.error('Compression error:', err.message);
+        setError('Error compressing image');
         setSubmitting(false);
       },
     });
@@ -55,6 +90,7 @@ const Upload: React.FC = () => {
   return (
     <div>
       <h1>BookReview</h1>
+      {error && <div className="error">{error}</div>}
       <Formik
         initialValues={{ file: null }}
         validationSchema={uploadSchema}
@@ -75,14 +111,14 @@ const Upload: React.FC = () => {
                 accept="image/*"
                 onChange={(event) => {
                   const file = event.currentTarget.files ? event.currentTarget.files[0] : null;
-                  setFieldValue("file", file);
+                  setFieldValue('file', file);
                 }}
               />
               <ErrorMessage name="file" component="div" className="error" />
             </div>
 
             <button type="submit" className="button" disabled={isSubmitting}>
-              Sign in
+              Upload Image
             </button>
           </Form>
         )}
