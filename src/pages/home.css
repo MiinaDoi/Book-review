@@ -1,0 +1,138 @@
+/* General container styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  margin-top: 300px; /* Adjust margin to account for fixed header */
+}
+
+/* Aligning the heading and button container */
+.heading-container {
+  display: flex;
+  justify-content: space-between; /* Align heading to the left and button to the right */
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.heading-container h1 {
+  font-size: 15px;
+}
+
+.create-review-button {
+  background-color: #2181E2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.create-review-button:hover {
+  background-color: #0056b3;
+}
+
+/* Review container */
+.review-container {
+  list-style: none;
+  width: 100%;
+  background-color: #F6F6F6;
+  border-radius: 20px;
+}
+
+/* Grid layout for review items */
+.grid-container {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.grid-container a {
+  font-weight: bold;
+}
+
+/* Review box styling */
+.review-box {
+  background-color: #f6f6f6;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  list-style-type: none;
+}
+
+.review-box h2 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.review-box p {
+  font-size: 0.9rem;
+  text-align: left;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.review-box .reviewer {
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.review-box a {
+  color: #007bff;
+  text-align: left;
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.review-box a:hover {
+  color: #0056b3;
+}
+
+/* Edit button */
+.navigate-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigate-container button:hover {
+  color: #0056b3;
+  background-color: transparent;
+}
+
+/* Pagination container */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.pagination-container button {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-container button:hover {
+  background-color: #999;
+}

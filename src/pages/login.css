@@ -1,0 +1,98 @@
+/* General styling for the whole page to center the form */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+    margin: 0;
+  }
+  
+  form {
+    background-color: #F6F6F6;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    box-sizing: border-box;
+  }
+  
+  /* Styling for form title */
+  form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold; /* Ensure the text is bold */
+    font-size: 36px; /* Larger font size for emphasis */
+    color: #121212; /* Specifying color, even though it's the same, for clarity */
+  }
+  
+  /* Styling labels for better readability */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 16px;
+    text-align: left;  /* Aligns text to the left */
+  }
+  
+  /* Style for input fields */
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* makes padding included in width */
+  }
+  
+  /* Highlighting the error messages */
+  .error {
+    color: #ff0000;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  /* Button styling */
+  .button {
+    background-color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-sizing: border-box; /* Includes padding and border in the width calculation */
+    width: calc(100% - 40px); 
+    height: 60px;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  /* Styling for placeholders in inputs */
+  input::placeholder {
+    color: #888;
+  }
+  
+  /* Ensure that focus states are visible and clear */
+  input:focus {
+    border-color: #4991E5;
+    outline: none;
+  }
+
+  .signup-redirect {
+    color: #545454;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .signup-redirect:hover {
+    text-decoration: underline;
+  }
+  
+  
